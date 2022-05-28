@@ -30,7 +30,7 @@ namespace NinetiesTV
             Print("All But Best Drama", AllButBestDrama(shows));
             Print("Good Crime Shows", GoodCrimeShows(shows));
             Print("Long-running, Top-rated", FirstLongRunningTopRated(shows));
-            Print("Most Words in Title", WordieastName(shows));
+            // Print("Most Words in Title", WordieastName(shows));
             Print("All Names", AllNamesWithCommas(shows));
             Print("All Names with And", AllNamesWithCommasPlsAnd(shows));
         }
@@ -214,25 +214,45 @@ namespace NinetiesTV
         //     with an IMDB rating of less than 8.0 ordered alphabetically.
         static Show FirstLongRunningTopRated(List<Show> shows)
         {
-            throw new NotImplementedException();
+            var query = new Show();
+            var showList = new List<Show>();
+             showList = shows
+             .Where(s=>s.EndYear - s.StartYear > 10)
+             .Where(s=>s.ImdbRating > 8)
+             .OrderBy(s=>s.Name)
+             .ToList();
+             query = showList[0];
+             return query;
         }
 
         // 21. Return the show with the most words in the name.
-        static Show WordieastName(List<Show> shows)
-        {
-            throw new NotImplementedException();
-        }
+        // static Show WordieastName(List<Show> shows)
+        // {
+        //     var query = new Show();
+        //     var showList = new List<Show>();
+        //     showList = shows
+        //     .Sum(s=>s.Name.Split( new char[] " ", StringSplitOptions.RemoveEmptyEntries).Length);
+        //     query = showList[0];
+        // }
 
         // 22. Return the names of all shows as a single string seperated by a comma and a space.
         static string AllNamesWithCommas(List<Show> shows)
         {
-            throw new NotImplementedException();
+            var query = "";
+            var showList = new List<string>();
+            showList = shows.Select(s=>s.Name).ToList();
+            query = string.Join(", ",showList);
+            return query;
         }
 
         // 23. Do the same as above, but put the word "and" between the second-to-last and last show name.
         static string AllNamesWithCommasPlsAnd(List<Show> shows)
         {
-            throw new NotImplementedException();
+            var query = "";
+            var showList = new List<string>();
+            showList = shows.Select(s=>s.Name).ToList();
+            query = string.Join(", ",showList.Take(showList.Count() - 1)) + " and " + showList.Last();
+            return query;
         }
 
 
