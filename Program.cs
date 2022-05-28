@@ -146,39 +146,68 @@ namespace NinetiesTV
         // 14. Return the shows with more than one genre ordered by their starting year.
         static List<Show> WithMultipleGenresByStartYear(List<Show> shows)
         {
-            throw new NotImplementedException();
+            return shows
+            .Where(s=>s.Genres.Count > 1)
+            .OrderBy(s=>s.StartYear)
+            .ToList();
         }
 
         // 15. Return the show with the most episodes.
         static Show MostEpisodes(List<Show> shows)
         {
-            throw new NotImplementedException();
+            var query = new Show();
+            shows.OrderByDescending(s=>s.EpisodeCount).ToList();
+            query = shows[0];
+            return query;            
         }
 
         // 16. Order the shows by their ending year then return the first 
         //     show that ended on or after the year 2000.
         static Show EndedFirstAfterTheMillennium(List<Show> shows)
         {
-            throw new NotImplementedException();
+            var query = new Show();
+            var showList = new List<Show>();
+            showList = shows
+            .OrderBy(s=>s.EndYear)
+            .Where(s=>s.EndYear >= 2000)
+            .ToList();
+            query = showList[0];
+            return query;
         }
 
         // 17. Order the shows by rating (highest first) 
         //     and return the first show with genre of drama.
         static Show BestDrama(List<Show> shows)
         {
-            throw new NotImplementedException();
+            var query = new Show();
+            var showList = new List<Show>();
+            showList = shows
+            .OrderByDescending(s=>s.ImdbRating)
+            .Where(s=>s.Genres.Contains("Drama"))
+            .ToList();
+            query = showList[0];
+            return query;
         }
 
         // 18. Return all dramas except for the highest rated.
         static List<Show> AllButBestDrama(List<Show> shows)
         {
-            throw new NotImplementedException();
+            return shows
+            .OrderByDescending(s=>s.ImdbRating)
+            .Where(s=>s.Genres.Contains("Drama"))
+            .Skip(1)
+            .ToList();
         }
 
         // 19. Return the number of crime shows with an IMDB rating greater than 7.0.
         static int GoodCrimeShows(List<Show> shows)
         {
-            throw new NotImplementedException();
+            var showList = new List<Show>();
+            showList = shows
+            .Where(s=>s.Genres.Contains("Crime"))
+            .Where(s=>s.ImdbRating > 7)
+            .ToList();
+            return showList.Count;
         }
 
         // 20. Return the first show that ran for more than 10 years 
